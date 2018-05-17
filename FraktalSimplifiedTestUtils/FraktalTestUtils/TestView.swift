@@ -15,17 +15,7 @@ public protocol TestViewType {
     var disposable: ScopedDisposable<AnyDisposable>? { get }
 }
 
-public protocol TestPresenterProtocol {
-    associatedtype TestView: TestViewType
-    var presenter: Presenter<TestView.ViewModel> { get }
-    var presented: [PresentedValue<TestView>] { get }
-}
-
-extension TestPresenterProtocol {
-    public var last: TestView! { return self.presented.last?.value }
-}
-
-public final class TestPresenter<TestView: TestViewType>: TestPresenterProtocol {
+public final class TestPresenter<TestView: TestViewType> {
 
     public init() {}
 
@@ -40,6 +30,7 @@ public final class TestPresenter<TestView: TestViewType>: TestPresenterProtocol 
     }
 
     public private(set) var presented: [PresentedValue<TestView>] = []
+    public var last: TestView! { return self.presented.last?.value }
 }
 
 extension TestViewType {
