@@ -73,6 +73,11 @@ extension Presenter {
         return ScopedDisposable(compositeDisposable)
     }
 
+    /// Present Property of ViewModel
+    public func present<P: PropertyProtocol>(_ property: P) -> Disposable? where P.Value == ViewModel {
+        return present(property.producer)
+    }
+
     /// Present any Presentable with same Presenters
     public func present<T: Presentable>(_ presentable: T) -> Disposable?
     where ViewModel == AnyPresentable<T.Presenters> {
